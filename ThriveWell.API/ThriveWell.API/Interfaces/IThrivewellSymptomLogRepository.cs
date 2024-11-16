@@ -3,7 +3,7 @@ using ThriveWell.API.DTOs;
 
 namespace ThriveWell.API.Interfaces
 {
-    public interface IThriveWellSymptomLogService
+    public interface IThriveWellSymptomLogRepository
     {
         Task<List<SymptomLog>> GetAllSymptomLogsAsync(string uid);
         Task<SymptomLog> GetSymptomByIdLogAsync(int id);
