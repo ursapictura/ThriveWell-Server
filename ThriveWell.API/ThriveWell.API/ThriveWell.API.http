@@ -1,0 +1,6 @@
+@ThriveWell.API_HostAddress = http://localhost:5186
+
+GET {{ThriveWell.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
