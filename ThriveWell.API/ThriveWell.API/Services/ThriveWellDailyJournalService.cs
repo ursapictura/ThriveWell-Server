@@ -4,7 +4,7 @@ using ThriveWell.API.DTOs;
 
 namespace ThriveWell.API.Sevices
 {
-    public class ThriveWellDailyJournalService : IThriveWellDailyJournalServices
+    public class ThriveWellDailyJournalService : IThriveWellDailyJournalService
     {
         private readonly IThriveWellDailyJournalRepository _dailyJournalServiceRepo;
 
@@ -13,19 +13,14 @@ namespace ThriveWell.API.Sevices
             _dailyJournalServiceRepo = dailyJournalServiceRepo;
         }
 
-        public async Task<DailyJournal> DeleteDailyJournalAsync(int id)
+        public Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid)
         {
-            return await _dailyJournalServiceRepo.DeleteDailyJournalAsync(id);
+            throw new NotImplementedException();
         }
 
         public async Task<DailyJournal> GetDailyJournalByIdAsync(int id)
         {
             return await _dailyJournalServiceRepo.GetDailyJournalByIdAsync(id);
-        }
-
-        public async Task<List<DailyJournal>> GetDailyJournalsAsync(string uid)
-        {
-            return await _dailyJournalServiceRepo.GetAllDailyJournalsAsync(uid);
         }
 
         public async Task<DailyJournal> PostDailyJournalAsync(AddDailyJournalDTO dailyJournalDTO)
@@ -36,6 +31,11 @@ namespace ThriveWell.API.Sevices
         public async Task<DailyJournal> UpdateDailyJournalAsnyc(int id, AddDailyJournalDTO dailyJournalDTO)
         {
             return await _dailyJournalServiceRepo.UpdateDailyJournalAsnyc(id, dailyJournalDTO);
+        }
+
+        public async Task<DailyJournal> DeleteDailyJournalAsync(int id)
+        {
+            return await _dailyJournalServiceRepo.DeleteDailyJournalAsync(id);
         }
     }
 }

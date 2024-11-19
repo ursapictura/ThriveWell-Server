@@ -4,7 +4,7 @@ namespace ThriveWell.Api.Data
 {
     public class TriggerData
     {
-        public static List<Trigger> triggers = new()
+        public static List<Trigger> Triggers = new()
         {
             new() { Id = 1, Name = "Cold Weather", Uid = "NSkdshfjdfajdsh97834" },
             new() { Id = 2, Name = "Hot Weather", Uid = "NSkdshfjdfajdsh97834" },

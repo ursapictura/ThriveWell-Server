@@ -2,9 +2,9 @@ using ThriveWell.API.Models;
 
 namespace ThriveWell.Api.Data
 {
-    public class SymtpomData
+    public class SymptomData
     {
-        public static List<Symptom> symptoms = new()
+        public static List<Symptom> Symptoms = new()
         {
             new() { Id = 1, Name = "Joint Pain", Uid="NSkdshfjdfajdsh97834" },
             new() { Id = 2, Name = "Fatigue", Uid="NSkdshfjdfajdsh97834" },

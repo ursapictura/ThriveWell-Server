@@ -4,7 +4,7 @@ namespace ThriveWell.Api.Data
 {
     public class DailyJournalData
     {
-        public static List<DailyJournal> dailyJournals = new()
+        public static List<DailyJournal> DailyJournals = new()
         {
             new() {Id = 1, Date = new DateOnly(2024, 11, 1), Uid="NSkdshfjdfajdsh97834", Entry = "Feeling pretty rough today. My joints are aching more than usual, especially in my knees and wrists. I’m also feeling fatigued, like I haven’t had enough sleep even though I did rest well. I had a mild headache earlier, but it faded after I drank some water. The pain is worse in the morning, but it gets a little better in the afternoon. Still, I’m not sure I have the energy to do much. Trying to take it easy today." },
             new() {Id = 2, Date = new DateOnly(2024, 11, 2), Uid="NSkdshfjdfajdsh97834", Entry = "Woke up feeling surprisingly better today. The joint pain is still there, but it’s more manageable. My energy levels seem higher, so I managed to get some housework done. My stomach was a little upset this morning, but I think it was just from the stress of yesterday. I didn’t have any headaches today, and I even went for a short walk outside. I feel optimistic, hoping this trend continues." },

@@ -13,11 +13,6 @@ namespace ThriveWell.API.Sevices
             _symptomRepo = symptomRepo;
         }
 
-        public async Task<Symptom> DeleteSymptomAsync(int id)
-        {
-            return await _symptomRepo.DeleteSymptomAsync(id);
-        }
-
         public async Task<List<Symptom>> GetAllSymptomsAsync(string uid)
         {
             return await _symptomRepo.GetAllSymptomsAsync(uid);
@@ -36,6 +31,11 @@ namespace ThriveWell.API.Sevices
         public async Task<Symptom> UpdateSymptomAsync(int id, AddSymtpomDTO symtpomDTO)
         {
             return await _symptomRepo.UpdateSymptomAsync(id, symtpomDTO);
+        }
+
+        public async Task<Symptom> DeleteSymptomAsync(int id)
+        {
+            return await _symptomRepo.DeleteSymptomAsync(id);
         }
     }
 }

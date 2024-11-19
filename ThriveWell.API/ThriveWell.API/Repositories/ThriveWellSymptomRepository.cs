@@ -16,29 +16,57 @@ namespace ThriveWell.API.Repositories
             _context = context;
         }
 
-        public async Task<Symptom> DeleteSymptomAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<Symptom>> GetAllSymptomsAsync(string uid)
         {
-            throw new NotImplementedException();
+            return await _context.Symptoms.OrderBy(s => s.Name).Where(s => s.Uid == uid).ToListAsync();
         }
 
         public async Task<Symptom> GetSymptomByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Symptoms.SingleOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task<Symptom> PostSymptomAsync(AddSymtpomDTO symptomDTO)
         {
-            throw new NotImplementedException();
+            Symptom newSymptom = new()
+            {
+                Name = symptomDTO.Name,
+                Uid = symptomDTO.Uid,
+            };
+
+            _context.Symptoms.Add(newSymptom);
+            await _context.SaveChangesAsync();
+            return newSymptom;
         }
 
         public async Task<Symptom> UpdateSymptomAsync(int id, AddSymtpomDTO symtpomDTO)
         {
-            throw new NotImplementedException();
+            Symptom updatedSymptom = await _context.Symptoms.SingleOrDefaultAsync(s => s.Id == id);
+
+            if (updatedSymptom == null)
+            {
+                return null;
+            }
+
+            updatedSymptom.Name = symtpomDTO.Name;
+            updatedSymptom.Uid = symtpomDTO.Uid;
+
+            await _context.SaveChangesAsync();
+            return updatedSymptom;
+        }
+
+        public async Task<Symptom> DeleteSymptomAsync(int id)
+        {
+            Symptom symptom = await _context.Symptoms.FirstOrDefaultAsync(s => s.Id == id);
+
+            if (symptom == null)
+            {
+                return null;
+            }
+
+            _context.Symptoms.Remove(symptom);
+            await _context.SaveChangesAsync();
+            return symptom;
         }
     }
 }

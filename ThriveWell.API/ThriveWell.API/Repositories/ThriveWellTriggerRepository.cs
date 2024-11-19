@@ -16,19 +16,21 @@ namespace ThriveWell.API.Repositories
             _context = context;
         }
 
-        public Task<Trigger> DeleteTriggerAsync(int id)
+        public async Task<List<Trigger>> GetAllTriggersAsync(string uid)
         {
-            throw new NotImplementedException();
+            return await _context.Triggers.OrderBy(t => t.Name).Where(t => t.Uid == uid).ToListAsync();
         }
 
-        public Task<List<Trigger>> GetAllTriggersAsync(string uid)
+        public async Task<Trigger> GetTriggerByIdAsync(int id)
         {
-            throw new NotImplementedException();
-        }
+            Trigger trigger = await _context.Triggers.SingleOrDefaultAsync(t => t.Id == id);
 
-        public Task<Trigger> GetTriggerByIdAsync(int id)
-        {
-            throw new NotImplementedException();
+            if (trigger == null)
+            {
+                return null;
+            }
+
+            return trigger;
         }
 
         public Task<Trigger> PostTriggerAsync(AddTriggerDTO triggerDTO)
@@ -37,6 +39,11 @@ namespace ThriveWell.API.Repositories
         }
 
         public Task<Trigger> UpdateTriggerAsync(int id, AddTriggerDTO triggerDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Trigger> DeleteTriggerAsync(int id)
         {
             throw new NotImplementedException();
         }

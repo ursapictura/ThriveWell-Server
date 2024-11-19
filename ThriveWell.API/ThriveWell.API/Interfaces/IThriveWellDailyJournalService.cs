@@ -3,7 +3,7 @@ using ThriveWell.API.DTOs;
 
 namespace ThriveWell.API.Interfaces
 {
-    public interface IThriveWellDailyJournalServices
+    public interface IThriveWellDailyJournalService
     {
         Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid);
         Task<DailyJournal> GetDailyJournalByIdAsync(int id);

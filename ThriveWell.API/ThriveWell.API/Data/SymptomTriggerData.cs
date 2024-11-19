@@ -4,7 +4,7 @@ namespace ThriveWell.Api.Data
 {
     public class SymptomTriggerData
     {
-        public static List<SymptomTrigger> symptomTriggers = new()
+        public static List<SymptomTrigger> SymptomTriggers = new()
         {
         // For Uid = "NSkdshfjdfajdsh97834"
         new() { Id = 1, SymptomLogId = 1, SymptomSeverity = 3, TriggerId = 1 }, // "Cold Weather"

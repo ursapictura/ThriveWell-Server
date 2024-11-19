@@ -14,26 +14,14 @@ namespace ThriveWell.API.Repositories
         {
             _context = context;
         }
-        public async Task<DailyJournal> DeleteDailyJournalAsync(int id)
+        public async Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid)
         {
-            var deleteDailyJournal = await _context.DailyJournals.FirstOrDefaultAsync(dj => dj.Id == id);
-            if (deleteDailyJournal == null)
-            {
-                return null;
-            }
-            _context.DailyJournals.Remove(deleteDailyJournal);
-            await _context.SaveChangesAsync();
-            return deleteDailyJournal;
+            return await _context.DailyJournals.OrderByDescending(dj => dj.Date).Where(dj => dj.Uid == uid).ToListAsync();
         }
 
         public async Task<DailyJournal> GetDailyJournalByIdAsync(int id)
         {
             return await _context.DailyJournals.FirstOrDefaultAsync(dj => dj.Id == id);
-        }
-
-        public async Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid)
-        {
-            return await _context.DailyJournals.Where(dj => dj.Uid == uid).ToListAsync();
         }
 
         public async Task<DailyJournal> PostDailyJournalAsync(AddDailyJournalDTO dailyJournalDTO)
@@ -66,6 +54,18 @@ namespace ThriveWell.API.Repositories
 
             await _context.SaveChangesAsync();
             return dailyJournalToUpdate;
+        }
+
+        public async Task<DailyJournal> DeleteDailyJournalAsync(int id)
+        {
+            var deleteDailyJournal = await _context.DailyJournals.FirstOrDefaultAsync(dj => dj.Id == id);
+            if (deleteDailyJournal == null)
+            {
+                return null;
+            }
+            _context.DailyJournals.Remove(deleteDailyJournal);
+            await _context.SaveChangesAsync();
+            return deleteDailyJournal;
         }
     }
 }

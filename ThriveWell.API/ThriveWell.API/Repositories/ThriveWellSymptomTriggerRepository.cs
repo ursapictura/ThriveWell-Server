@@ -16,12 +16,12 @@ namespace ThriveWell.API.Repositories
             _context = context;
         }
 
-        public Task<SymptomTrigger> DeleteSymptomTriggerAsync(int id)
+        public Task<SymptomTrigger> PostSymptomTriggerAsync(AddSymptomTriggerDTO symptomTriggerDTO)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SymptomTrigger> PostSymptomTriggerAsync(AddSymptomTriggerDTO symptomTriggerDTO)
+        public Task<SymptomTrigger> DeleteSymptomTriggerAsync(int id)
         {
             throw new NotImplementedException();
         }
