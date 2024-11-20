@@ -6,11 +6,11 @@ using ThriveWell.API.Data;
 
 namespace ThriveWell.API.Repositories
 {
-    public class ThriveWellDailyJournalRespository : IThriveWellDailyJournalRepository
+    public class ThriveWellDailyJournalRepository : IThriveWellDailyJournalRepository
     {
         private readonly ThriveWellDbContext _context;
 
-        public ThriveWellDailyJournalRespository(ThriveWellDbContext context)
+        public ThriveWellDailyJournalRepository(ThriveWellDbContext context)
         {
             _context = context;
         }
@@ -28,7 +28,6 @@ namespace ThriveWell.API.Repositories
         {
             var newDailyJournal = new DailyJournal
             {
-                Id = dailyJournalDTO.Id,
                 Entry = dailyJournalDTO.Entry,
                 Date = dailyJournalDTO.Date,
                 Uid = dailyJournalDTO.Uid,

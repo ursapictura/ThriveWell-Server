@@ -6,12 +6,12 @@ using ThriveWell.API.Data;
 
 namespace ThriveWell.API.Respositories
 {
-    public class ThriveWellSymptomLogRespository : IThriveWellSymptomLogRepository
+    public class ThriveWellSymptomLogRepository : IThriveWellSymptomLogRepository
     {
 
         private readonly ThriveWellDbContext _context;
 
-        public ThriveWellSymptomLogRespository(ThriveWellDbContext context)
+        public ThriveWellSymptomLogRepository(ThriveWellDbContext context)
         {
             _context = context;
         }
@@ -19,11 +19,11 @@ namespace ThriveWell.API.Respositories
         public async Task<List<SymptomLog>> GetAllSymptomLogsAsync(string uid)
         {
             return await _context.SymptomLogs
+                .Where(sl => sl.Uid == uid)
                 .Include(sl => sl.Symptom)
                 .Include(sl => sl.SymptomTrigger)
                 .ThenInclude(st => st.Trigger)
                 .OrderByDescending(sl => sl.Date)
-                .Where(sl => sl.Uid == uid)
                 .ToListAsync();
         }
 

@@ -47,17 +47,11 @@ namespace ThriveWell.API.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Uid = table.Column<string>(type: "text", nullable: false),
-                    DailyJournalId = table.Column<int>(type: "integer", nullable: true)
+                    Uid = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Triggers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Triggers_DailyJournals_DailyJournalId",
-                        column: x => x.DailyJournalId,
-                        principalTable: "DailyJournals",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +93,12 @@ namespace ThriveWell.API.Migrations
                         name: "FK_SymptomTriggers_SymptomLogs_SymptomLogId",
                         column: x => x.SymptomLogId,
                         principalTable: "SymptomLogs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SymptomTriggers_Triggers_TriggerId",
+                        column: x => x.TriggerId,
+                        principalTable: "Triggers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -151,29 +151,29 @@ namespace ThriveWell.API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Triggers",
-                columns: new[] { "Id", "DailyJournalId", "Name", "Uid" },
+                columns: new[] { "Id", "Name", "Uid" },
                 values: new object[,]
                 {
-                    { 1, null, "Cold Weather", "NSkdshfjdfajdsh97834" },
-                    { 2, null, "Hot Weather", "NSkdshfjdfajdsh97834" },
-                    { 3, null, "Lack of Sleep", "NSkdshfjdfajdsh97834" },
-                    { 4, null, "Overexertion", "NSkdshfjdfajdsh97834" },
-                    { 5, null, "Infection/Illness", "NSkdshfjdfajdsh97834" },
-                    { 6, null, "Stress", "NSkdshfjdfajdsh97834" },
-                    { 7, null, "Physical Injury", "NSkdshfjdfajdsh97834" },
-                    { 8, null, "Flu Vaccination", "NSkdshfjdfajdsh97834" },
-                    { 9, null, "Hormonal Changes", "NSkdshfjdfajdsh97834" },
-                    { 10, null, "Cold Weather", "NSkdshfjdfajdsh97834" },
-                    { 11, null, "Gluten", "NSkdshfjdfajdsh97834" },
-                    { 12, null, "Dairy", "NSkdshfjdfajdsh97834" },
-                    { 13, null, "Nightshades: Tomatoes, Eggplant, Peppers", "NSkdshfjdfajdsh97834" },
-                    { 14, null, "Dehydration", "NSkdshfjdfajdsh97834" },
-                    { 15, null, "Caffeine", "NSkdshfjdfajdsh97834" },
-                    { 16, null, "New Laundry Detergent", "KJHKBdskdaksjde9458v" },
-                    { 17, null, "New Lotion/Skincare Products", "KJHKBdskdaksjde9458v" },
-                    { 18, null, "Lack of Exercise", "KJHKBdskdaksjde9458v" },
-                    { 19, null, "Smoking", "KJHKBdskdaksjde9458v" },
-                    { 20, null, "Alcohol Consumption", "KJHKBdskdaksjde9458v" }
+                    { 1, "Cold Weather", "NSkdshfjdfajdsh97834" },
+                    { 2, "Hot Weather", "NSkdshfjdfajdsh97834" },
+                    { 3, "Lack of Sleep", "NSkdshfjdfajdsh97834" },
+                    { 4, "Overexertion", "NSkdshfjdfajdsh97834" },
+                    { 5, "Infection/Illness", "NSkdshfjdfajdsh97834" },
+                    { 6, "Stress", "NSkdshfjdfajdsh97834" },
+                    { 7, "Physical Injury", "NSkdshfjdfajdsh97834" },
+                    { 8, "Flu Vaccination", "NSkdshfjdfajdsh97834" },
+                    { 9, "Hormonal Changes", "NSkdshfjdfajdsh97834" },
+                    { 10, "Cold Weather", "NSkdshfjdfajdsh97834" },
+                    { 11, "Gluten", "NSkdshfjdfajdsh97834" },
+                    { 12, "Dairy", "NSkdshfjdfajdsh97834" },
+                    { 13, "Nightshades: Tomatoes, Eggplant, Peppers", "NSkdshfjdfajdsh97834" },
+                    { 14, "Dehydration", "NSkdshfjdfajdsh97834" },
+                    { 15, "Caffeine", "NSkdshfjdfajdsh97834" },
+                    { 16, "New Laundry Detergent", "KJHKBdskdaksjde9458v" },
+                    { 17, "New Lotion/Skincare Products", "KJHKBdskdaksjde9458v" },
+                    { 18, "Lack of Exercise", "KJHKBdskdaksjde9458v" },
+                    { 19, "Smoking", "KJHKBdskdaksjde9458v" },
+                    { 20, "Alcohol Consumption", "KJHKBdskdaksjde9458v" }
                 });
 
             migrationBuilder.InsertData(
@@ -261,24 +261,24 @@ namespace ThriveWell.API.Migrations
                 column: "SymptomLogId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Triggers_DailyJournalId",
-                table: "Triggers",
-                column: "DailyJournalId");
+                name: "IX_SymptomTriggers_TriggerId",
+                table: "SymptomTriggers",
+                column: "TriggerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SymptomTriggers");
+                name: "DailyJournals");
 
             migrationBuilder.DropTable(
-                name: "Triggers");
+                name: "SymptomTriggers");
 
             migrationBuilder.DropTable(
                 name: "SymptomLogs");
 
             migrationBuilder.DropTable(
-                name: "DailyJournals");
+                name: "Triggers");
 
             migrationBuilder.DropTable(
                 name: "Symptoms");

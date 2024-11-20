@@ -24,7 +24,7 @@ namespace ThriveWell.API.Data
             modelBuilder.Entity<SymptomTrigger>().HasData(SymptomTriggerData.SymptomTriggers);
 
             modelBuilder.Entity<SymptomLog>()
-                .HasMany(sl => sl.SymtpomTrigger)
+                .HasMany(sl => sl.SymptomTrigger)
                 .WithOne(st => st.SymptomLog)
                 .HasForeignKey(st => st.SymptomLogId)
                 .OnDelete(DeleteBehavior.Cascade);

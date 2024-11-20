@@ -26,7 +26,7 @@ namespace ThriveWell.API.Repositories
             return await _context.Symptoms.SingleOrDefaultAsync(s => s.Id == id);
         }
 
-        public async Task<Symptom> PostSymptomAsync(AddSymtpomDTO symptomDTO)
+        public async Task<Symptom> PostSymptomAsync(AddSymptomDTO symptomDTO)
         {
             Symptom newSymptom = new()
             {
@@ -39,7 +39,7 @@ namespace ThriveWell.API.Repositories
             return newSymptom;
         }
 
-        public async Task<Symptom> UpdateSymptomAsync(int id, AddSymtpomDTO symtpomDTO)
+        public async Task<Symptom> UpdateSymptomAsync(int id, AddSymptomDTO symptomDTO)
         {
             Symptom updatedSymptom = await _context.Symptoms.SingleOrDefaultAsync(s => s.Id == id);
 
@@ -48,8 +48,8 @@ namespace ThriveWell.API.Repositories
                 return null;
             }
 
-            updatedSymptom.Name = symtpomDTO.Name;
-            updatedSymptom.Uid = symtpomDTO.Uid;
+            updatedSymptom.Name = symptomDTO.Name;
+            updatedSymptom.Uid = symptomDTO.Uid;
 
             await _context.SaveChangesAsync();
             return updatedSymptom;

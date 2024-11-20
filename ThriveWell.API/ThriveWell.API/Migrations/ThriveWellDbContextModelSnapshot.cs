@@ -569,6 +569,8 @@ namespace ThriveWell.API.Migrations
 
                     b.HasIndex("SymptomLogId");
 
+                    b.HasIndex("TriggerId");
+
                     b.ToTable("SymptomTriggers");
 
                     b.HasData(
@@ -792,9 +794,6 @@ namespace ThriveWell.API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DailyJournalId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -804,8 +803,6 @@ namespace ThriveWell.API.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DailyJournalId");
 
                     b.ToTable("Triggers");
 
@@ -946,29 +943,25 @@ namespace ThriveWell.API.Migrations
             modelBuilder.Entity("ThriveWell.API.Models.SymptomTrigger", b =>
                 {
                     b.HasOne("ThriveWell.API.Models.SymptomLog", "SymptomLog")
-                        .WithMany("SymtpomTrigger")
+                        .WithMany("SymptomTrigger")
                         .HasForeignKey("SymptomLogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ThriveWell.API.Models.Trigger", "Trigger")
+                        .WithMany()
+                        .HasForeignKey("TriggerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("SymptomLog");
-                });
 
-            modelBuilder.Entity("ThriveWell.API.Models.Trigger", b =>
-                {
-                    b.HasOne("ThriveWell.API.Models.DailyJournal", null)
-                        .WithMany("Triggers")
-                        .HasForeignKey("DailyJournalId");
-                });
-
-            modelBuilder.Entity("ThriveWell.API.Models.DailyJournal", b =>
-                {
-                    b.Navigation("Triggers");
+                    b.Navigation("Trigger");
                 });
 
             modelBuilder.Entity("ThriveWell.API.Models.SymptomLog", b =>
                 {
-                    b.Navigation("SymtpomTrigger");
+                    b.Navigation("SymptomTrigger");
                 });
 #pragma warning restore 612, 618
         }

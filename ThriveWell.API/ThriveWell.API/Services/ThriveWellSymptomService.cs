@@ -23,12 +23,12 @@ namespace ThriveWell.API.Sevices
             return await _symptomRepo.GetSymptomByIdAsync(id);
         }
 
-        public async Task<Symptom> PostSymptomAsync(AddSymtpomDTO symptomDTO)
+        public async Task<Symptom> PostSymptomAsync(AddSymptomDTO symptomDTO)
         {
             return await _symptomRepo.PostSymptomAsync(symptomDTO);
         }
 
-        public async Task<Symptom> UpdateSymptomAsync(int id, AddSymtpomDTO symtpomDTO)
+        public async Task<Symptom> UpdateSymptomAsync(int id, AddSymptomDTO symtpomDTO)
         {
             return await _symptomRepo.UpdateSymptomAsync(id, symtpomDTO);
         }

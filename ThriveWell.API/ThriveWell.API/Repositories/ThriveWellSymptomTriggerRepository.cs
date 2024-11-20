@@ -40,7 +40,7 @@ namespace ThriveWell.API.Repositories
             };
 
             _context.SymptomTriggers.Remove(symptomTrigger);
-            await _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return symptomTrigger;
         }
     }
