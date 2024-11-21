@@ -13,9 +13,9 @@ namespace ThriveWell.API.Sevices
             _dailyJournalServiceRepo = dailyJournalServiceRepo;
         }
 
-        public Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid)
+        public async Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid)
         {
-            throw new NotImplementedException();
+            return await _dailyJournalServiceRepo.GetAllDailyJournalsAsync(uid);
         }
 
         public async Task<DailyJournal> GetDailyJournalByIdAsync(int id)

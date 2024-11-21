@@ -22,6 +22,7 @@ namespace ThriveWell.API.Endpoint
             group.MapGet("/{id}", async (IThriveWellDailyJournalService dailyJournalService, int id) =>
             {
                 var journal = await dailyJournalService.GetDailyJournalByIdAsync(id);
+                return journal;
             })
                 .WithName("GetDailyJournalById")
                 .WithOpenApi()

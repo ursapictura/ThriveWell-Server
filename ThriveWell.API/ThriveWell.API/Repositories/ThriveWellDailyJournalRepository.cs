@@ -21,7 +21,7 @@ namespace ThriveWell.API.Repositories
 
         public async Task<DailyJournal> GetDailyJournalByIdAsync(int id)
         {
-            return await _context.DailyJournals.FirstOrDefaultAsync(dj => dj.Id == id);
+            return await _context.DailyJournals.SingleOrDefaultAsync(dj => dj.Id == id);
         }
 
         public async Task<DailyJournal> PostDailyJournalAsync(AddDailyJournalDTO dailyJournalDTO)
