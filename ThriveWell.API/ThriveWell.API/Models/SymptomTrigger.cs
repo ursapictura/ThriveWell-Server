@@ -1,6 +1,6 @@
 namespace ThriveWell.API.Models
 {
-    public class SymtpomTrigger
+    public class SymptomTrigger
     {
         public int Id { get; set; }
         public int SymptomLogId { get; set; }
