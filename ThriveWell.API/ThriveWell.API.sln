@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThriveWell.API", "ThriveWell.API\ThriveWell.API.csproj", "{FACDC31C-4128-4C96-82D0-E90DA4D9E16E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThriveWell.Tests", "ThriveWell.Tests\ThriveWell.Tests.csproj", "{EF4CECB0-CCE8-42AF-BE6A-9B37AE4FFF5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FACDC31C-4128-4C96-82D0-E90DA4D9E16E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACDC31C-4128-4C96-82D0-E90DA4D9E16E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACDC31C-4128-4C96-82D0-E90DA4D9E16E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF4CECB0-CCE8-42AF-BE6A-9B37AE4FFF5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF4CECB0-CCE8-42AF-BE6A-9B37AE4FFF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF4CECB0-CCE8-42AF-BE6A-9B37AE4FFF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF4CECB0-CCE8-42AF-BE6A-9B37AE4FFF5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

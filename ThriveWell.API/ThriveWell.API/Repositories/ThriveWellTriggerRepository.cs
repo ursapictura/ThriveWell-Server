@@ -16,29 +16,64 @@ namespace ThriveWell.API.Repositories
             _context = context;
         }
 
-        public Task<Trigger> DeleteTriggerAsync(int id)
+        public async Task<List<Trigger>> GetAllTriggersAsync(string uid)
         {
-            throw new NotImplementedException();
+            return await _context.Triggers.OrderBy(t => t.Name).Where(t => t.Uid == uid).ToListAsync();
         }
 
-        public Task<List<Trigger>> GetAllTriggersAsync(string uid)
+        public async Task<Trigger> GetTriggerByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Trigger trigger = await _context.Triggers.SingleOrDefaultAsync(t => t.Id == id);
+
+            if (trigger == null)
+            {
+                return null;
+            }
+
+            return trigger;
         }
 
-        public Task<Trigger> GetTriggerByIdAsync(int id)
+        public async Task<Trigger> PostTriggerAsync(AddTriggerDTO triggerDTO)
         {
-            throw new NotImplementedException();
+            Trigger newTrigger = new Trigger()
+            {
+                Name = triggerDTO.Name,
+                Uid = triggerDTO.Uid,
+            };
+
+            _context.Triggers.Add(newTrigger);
+            await _context.SaveChangesAsync();
+            return newTrigger;
         }
 
-        public Task<Trigger> PostTriggerAsync(AddTriggerDTO triggerDTO)
+        public async Task<Trigger> UpdateTriggerAsync(int id, AddTriggerDTO triggerDTO)
         {
-            throw new NotImplementedException();
+            Trigger updatedTrigger = await _context.Triggers.SingleOrDefaultAsync(t => t.Id == id);
+
+            if (updatedTrigger == null)
+            {
+                return null;
+            };
+
+            updatedTrigger.Name = triggerDTO.Name;
+            updatedTrigger.Uid = triggerDTO.Uid;
+
+            await _context.SaveChangesAsync();
+            return updatedTrigger;
         }
 
-        public Task<Trigger> UpdateTriggerAsync(int id, AddTriggerDTO triggerDTO)
+        public async Task<Trigger> DeleteTriggerAsync(int id)
         {
-            throw new NotImplementedException();
+            Trigger trigger = await _context.Triggers.SingleOrDefaultAsync(t => t.Id == id);
+
+            if (trigger == null)
+            {
+                return null;
+            };
+
+            _context.Triggers.Remove(trigger);
+            await _context.SaveChangesAsync();
+            return trigger;
         }
     }
 }

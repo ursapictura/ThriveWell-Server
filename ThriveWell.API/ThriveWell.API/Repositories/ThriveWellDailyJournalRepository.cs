@@ -6,37 +6,65 @@ using ThriveWell.API.Data;
 
 namespace ThriveWell.API.Repositories
 {
-    public class ThriveWellDailyJournalRespository : IThriveWellDailyJournalRepository
+    public class ThriveWellDailyJournalRepository : IThriveWellDailyJournalRepository
     {
         private readonly ThriveWellDbContext _context;
 
-        public ThriveWellDailyJournalRespository(ThriveWellDbContext context)
+        public ThriveWellDailyJournalRepository(ThriveWellDbContext context)
         {
             _context = context;
         }
-        public async Task<DailyJournal> DeleteDailyJournalAsync(int id)
+        public async Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid)
         {
-            throw new NotImplementedException();
+            return await _context.DailyJournals.OrderByDescending(dj => dj.Date).Where(dj => dj.Uid == uid).ToListAsync();
         }
 
         public async Task<DailyJournal> GetDailyJournalByIdAsync(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<DailyJournal>> GetAllDailyJournalsAsync(string uid)
-        {
-            throw new NotImplementedException();
+            return await _context.DailyJournals.SingleOrDefaultAsync(dj => dj.Id == id);
         }
 
         public async Task<DailyJournal> PostDailyJournalAsync(AddDailyJournalDTO dailyJournalDTO)
         {
-            throw new NotImplementedException();
+            var newDailyJournal = new DailyJournal
+            {
+                Entry = dailyJournalDTO.Entry,
+                Date = dailyJournalDTO.Date,
+                Uid = dailyJournalDTO.Uid,
+            };
+
+            _context.DailyJournals.Add(newDailyJournal);
+            await _context.SaveChangesAsync();
+            return newDailyJournal;
         }
 
         public async Task<DailyJournal> UpdateDailyJournalAsnyc(int id, AddDailyJournalDTO dailyJournalDTO)
         {
-            throw new NotImplementedException();
+            var dailyJournalToUpdate = await _context.DailyJournals.FirstOrDefaultAsync(dj => dj.Id == id);
+
+            if (dailyJournalToUpdate == null)
+            {
+                return null;
+            }
+
+            dailyJournalToUpdate.Entry = dailyJournalDTO.Entry;
+            dailyJournalToUpdate.Date = dailyJournalDTO.Date;
+            dailyJournalToUpdate.Uid = dailyJournalDTO.Uid;
+
+            await _context.SaveChangesAsync();
+            return dailyJournalToUpdate;
+        }
+
+        public async Task<DailyJournal> DeleteDailyJournalAsync(int id)
+        {
+            var deleteDailyJournal = await _context.DailyJournals.FirstOrDefaultAsync(dj => dj.Id == id);
+            if (deleteDailyJournal == null)
+            {
+                return null;
+            }
+            _context.DailyJournals.Remove(deleteDailyJournal);
+            await _context.SaveChangesAsync();
+            return deleteDailyJournal;
         }
     }
 }

@@ -16,14 +16,32 @@ namespace ThriveWell.API.Repositories
             _context = context;
         }
 
-        public Task<SymptomTrigger> DeleteSymptomTriggerAsync(int id)
+        public async Task<SymptomTrigger> PostSymptomTriggerAsync(AddSymptomTriggerDTO symptomTriggerDTO)
         {
-            throw new NotImplementedException();
+            SymptomTrigger newSymptomTrigger = new()
+            {
+                SymptomLogId = symptomTriggerDTO.SymptomLogId,
+                SymptomSeverity = symptomTriggerDTO.SymptomSeverity,
+                TriggerId = symptomTriggerDTO.TriggerId,
+            };
+
+            _context.SymptomTriggers.Add(newSymptomTrigger);
+            await _context.SaveChangesAsync(); 
+            return newSymptomTrigger;
         }
 
-        public Task<SymptomTrigger> PostSymptomTriggerAsync(AddSymptomTriggerDTO symptomTriggerDTO)
+        public async Task<SymptomTrigger> DeleteSymptomTriggerAsync(int id)
         {
-            throw new NotImplementedException();
+            SymptomTrigger symptomTrigger = await _context.SymptomTriggers.SingleOrDefaultAsync(st => st.Id == id);
+
+            if (symptomTrigger == null)
+            {
+                return null;
+            };
+
+            _context.SymptomTriggers.Remove(symptomTrigger);
+            await _context.SaveChangesAsync();
+            return symptomTrigger;
         }
     }
 }
