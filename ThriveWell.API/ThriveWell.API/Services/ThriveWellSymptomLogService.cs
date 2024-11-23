@@ -18,9 +18,9 @@ namespace ThriveWell.API.Sevices
             return await _symptomLogRepo.GetAllSymptomLogsAsync(uid);
         }
 
-        public async Task<SymptomLog> GetSymptomByIdLogAsync(int id)
+        public async Task<SymptomLog> GetSymptomLogByIdAsync(int id)
         {
-            return await _symptomLogRepo.GetSymptomByIdLogAsync(id);
+            return await _symptomLogRepo.GetSymptomLogByIdAsync(id);
         }
 
         public async Task<SymptomLog> PostSymtpomLogAsync(AddSymptomLogDTO symptomLogDTO)
