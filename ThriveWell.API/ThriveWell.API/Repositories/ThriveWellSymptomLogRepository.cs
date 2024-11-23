@@ -27,7 +27,7 @@ namespace ThriveWell.API.Respositories
                 .ToListAsync();
         }
 
-        public async Task<SymptomLog> GetSymptomByIdLogAsync(int id)
+        public async Task<SymptomLog> GetSymptomLogByIdAsync(int id)
         {
             return await _context.SymptomLogs
                .Include(sl => sl.Symptom)

@@ -21,7 +21,7 @@ namespace ThriveWell.API.Endpoint
 
             group.MapGet("/{id}", async (IThriveWellSymptomLogService symptomLogService, int id) =>
             {
-                var log = await symptomLogService.GetSymptomByIdLogAsync(id);
+                var log = await symptomLogService.GetSymptomLogByIdAsync(id);
                 return log;
             })
                 .WithName("GetSymptomLogById")
