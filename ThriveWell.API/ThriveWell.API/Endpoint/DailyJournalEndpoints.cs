@@ -11,7 +11,7 @@ namespace ThriveWell.API.Endpoint
         {
             var group = routes.MapGroup("/journals").WithTags(nameof(DailyJournal));
 
-            group.MapGet("/", async (IThriveWellDailyJournalService dailyJournalService, string uid) =>
+            group.MapGet("/user/{uid}", async (IThriveWellDailyJournalService dailyJournalService, string uid) =>
             {
                 return await dailyJournalService.GetAllDailyJournalsAsync(uid);
             })

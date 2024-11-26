@@ -9,9 +9,9 @@ namespace ThriveWell.API.Endpoint
     {
         public static void MapSymptomLogEndpoints(this IEndpointRouteBuilder routes)
         {
-            var group = routes.MapGroup("/symptomlogs").WithTags(nameof(SymptomLog));
+            var group = routes.MapGroup("/logs").WithTags(nameof(SymptomLog));
 
-            group.MapGet("/", async (IThriveWellSymptomLogService symptomLogService, string uid) =>
+            group.MapGet("/user/{uid}", async (IThriveWellSymptomLogService symptomLogService, string uid) =>
             {
                 return await symptomLogService.GetAllSymptomLogsAsync(uid);
             })

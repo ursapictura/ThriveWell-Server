@@ -9,9 +9,9 @@ namespace ThriveWell.API.Endpoint
     {
         public static void MapTriggerEndpoints(this IEndpointRouteBuilder routes)
         {
-            var group = routes.MapGroup("/trigger").WithTags(nameof(Trigger));
+            var group = routes.MapGroup("/triggers").WithTags(nameof(Trigger));
 
-            group.MapGet("/", async (IThriveWellTriggerService triggerService, string uid) =>
+            group.MapGet("/user/{uid}", async (IThriveWellTriggerService triggerService, string uid) =>
             {
                 return await triggerService.GetAllTriggersAsync(uid);
             })
