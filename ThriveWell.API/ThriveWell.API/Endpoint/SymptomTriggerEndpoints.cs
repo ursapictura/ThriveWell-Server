@@ -10,7 +10,7 @@ namespace ThriveWell.API.Endpoint
     {
         public static void MapSymptomTriggerEndpoints(this IEndpointRouteBuilder routes)
         {
-            var group = routes.MapGroup("/symptom-trigger").WithTags(nameof(SymptomTrigger));
+            var group = routes.MapGroup("/symptom-triggers").WithTags(nameof(SymptomTrigger));
 
             group.MapPost("/", async (IThriveWellSymptomTriggerService symptomTriggerService, [FromBody] AddSymptomTriggerDTO symptomTriggerDTO) =>
             {
