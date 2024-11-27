@@ -19,7 +19,7 @@ This documentation provides detailed information on all API endpoints and reques
 
 
 <p align="center">
-<a href="https://www.postman.com/ursapictura/workspace/thrivewell-api/collection/31905233-59505643-1e47-44b0-b03b-cb41ffea3211?action=share&creator=31905233">View Postman Documentation</a>
+<a href="https://documenter.getpostman.com/view/31905233/2sAYBViC5M">View Postman Documentation</a>
 </p>
 
 <h2 id="tech">💻 Technologies</h2>
