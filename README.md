@@ -138,5 +138,6 @@ The following endpoints are available in the ThriveWell API.
 
 <h3>Documentations that might help</h3>
 
-[📝 Postman Documentation](https://www.postman.com/ursapictura/workspace/thrivewell-api/collection/31905233-59505643-1e47-44b0-b03b-cb41ffea3211?action=share&creator=31905233)
+[📝 Postman Documentation](https://documenter.getpostman.com/view/31905233/2sAYBViC5M)
+
 [💻 Project ERD](https://dbdiagram.io/d/ThriveWell-66fc7ed5fb079c7ebd04de50)
