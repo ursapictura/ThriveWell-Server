@@ -22,6 +22,12 @@ namespace ThriveWell.API.Sevices
             // return await _dailyJournalServiceRepo.GetAllDailyJournalsAsync(uid);
 
             List<DailyJournal>? dailyJournals = await _dailyJournalServiceRepo.GetAllDailyJournalsAsync(uid);
+            
+            if (dailyJournals == null)
+            {
+                return null;
+            };
+
             List<SymptomLog>? symptomLogs = await _symptomLogServiceRepo.GetAllSymptomLogsAsync(uid);
 
             var journalsWithSeverity = dailyJournals
@@ -53,6 +59,12 @@ namespace ThriveWell.API.Sevices
         {
             // return await _dailyJournalServiceRepo.GetDailyJournalByIdAsync(id);
             DailyJournal dailyJournal = await _dailyJournalServiceRepo.GetDailyJournalByIdAsync(id);
+
+            if (dailyJournal == null)
+            {
+                return null;
+            }
+
             List<SymptomLog>? symptomLogs = await _symptomLogServiceRepo.GetAllSymptomLogsAsync(dailyJournal.Uid);
 
             var severityAverage = symptomLogs.Where(s => s.Date == dailyJournal.Date).Average(sl => sl.Severity);
