@@ -30,6 +30,19 @@ namespace ThriveWell.API.Sevices
 
             List<SymptomLog>? symptomLogs = await _symptomLogServiceRepo.GetAllSymptomLogsAsync(uid);
 
+            if (symptomLogs  == null)
+            {
+                return dailyJournals.Select(dj => new DailyJournalDTO
+                {
+                    Id = dj.Id,
+                    Entry = dj.Entry,
+                    Date = dj.Date,
+                    Uid = dj.Uid,
+                    SeverityAverage = 0,
+                })
+                .ToList();
+            }
+
             var journalsWithSeverity = dailyJournals
                 .GroupJoin(symptomLogs,
                     dj => new { dj.Uid, dj.Date },
@@ -65,20 +78,34 @@ namespace ThriveWell.API.Sevices
                 return null;
             }
 
+            var journalDTO = new DailyJournalDTO
+            {
+                Id = dailyJournal.Id,
+                Entry = dailyJournal.Entry,
+                Date = new DateOnly(dailyJournal.Date.Year, dailyJournal.Date.Month, dailyJournal.Date.Day),
+                Uid = dailyJournal.Uid,
+                SeverityAverage = 0,
+            };
+
             List<SymptomLog>? symptomLogs = await _symptomLogServiceRepo.GetAllSymptomLogsAsync(dailyJournal.Uid);
 
-            var severityAverage = symptomLogs.Where(s => s.Date == dailyJournal.Date).Average(sl => sl.Severity);
+            if (symptomLogs != null && symptomLogs.Any())
+            {
+                var matchingLogs = symptomLogs.Where(s => s.Date == dailyJournal.Date).ToList();
 
-            var journalWithSeverity = new DailyJournalDTO
+                if (matchingLogs.Any())
                 {
-                    Id = dailyJournal.Id,
-                    Entry = dailyJournal.Entry,
-                    Date = dailyJournal.Date,
-                    Uid = dailyJournal.Uid,
-                    SeverityAverage = severityAverage // Add average severity for SymptomLogs sharing same Uid and Date
-                };
+                    var severityAverage = matchingLogs.Average(sl => sl.Severity);
+                    journalDTO.SeverityAverage = severityAverage; // Add average severity for SymptomLogs sharing same Uid and Date
+                }
+                else
+                {
+                    journalDTO.SeverityAverage = 0; // No matching logs for the date, so set it to 0
+                }
+            }
 
-            return journalWithSeverity;
+
+            return journalDTO;
 
         }
 
