@@ -24,6 +24,11 @@ namespace ThriveWell.API.Repositories
             return await _context.DailyJournals.SingleOrDefaultAsync(dj => dj.Id == id);
         }
 
+        public async Task<List<DailyJournal>> GetDailyJournalsByMonthAndYearAsync(string uid, int year, int month)
+        {
+            return await _context.DailyJournals.Where(dj => dj.Date.Year == year && dj.Date.Month == month && dj.Uid == uid).OrderByDescending(dj => dj.Date).ToListAsync();
+        }
+
         public async Task<DailyJournal> PostDailyJournalAsync(AddDailyJournalDTO dailyJournalDTO)
         {
             var newDailyJournal = new DailyJournal

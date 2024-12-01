@@ -100,13 +100,61 @@ namespace ThriveWell.API.Sevices
                 }
                 else
                 {
-                    journalDTO.SeverityAverage = 0; // No matching logs for the date, so set it to 0
+                    journalDTO.SeverityAverage = 0; // No matching logs for the date, set average 0
                 }
             }
 
 
             return journalDTO;
 
+        }
+
+        public async Task<List<DailyJournalDTO>> GetDailyJournalsByMonthAndYearAsync(string uid, int year, int month)
+        {
+            List<DailyJournal>? dailyJournals = await _dailyJournalServiceRepo.GetDailyJournalsByMonthAndYearAsync(uid, year, month);
+
+            if (dailyJournals == null)
+            {
+                return null;
+            };
+
+            List<SymptomLog>? symptomLogs = await _symptomLogServiceRepo.GetAllSymptomLogsAsync(uid);
+
+            if (symptomLogs == null)
+            {
+                return dailyJournals.Select(dj => new DailyJournalDTO
+                {
+                    Id = dj.Id,
+                    Entry = dj.Entry,
+                    Date = dj.Date,
+                    Uid = dj.Uid,
+                    SeverityAverage = 0,
+                })
+                .ToList();
+            }
+
+            var journalsWithSeverity = dailyJournals
+                .GroupJoin(symptomLogs,
+                    dj => new { dj.Uid, dj.Date },
+                    sl => new { sl.Uid, sl.Date },
+                    (dj, symptomLogs) => new { dj, symptomLogs }) // Left join with SymptomLogs
+                .SelectMany(
+                    x => x.symptomLogs.DefaultIfEmpty(),
+                    (x, sl) => new { x.dj, sl }) // Flatten the grouped results
+                .GroupBy(
+                    x => new { x.dj.Id, x.dj.Entry, x.dj.Date, x.dj.Uid },
+                    x => x.sl) // Group by journal information
+                .Select(g => new DailyJournalDTO
+                {
+                    Id = g.Key.Id,
+                    Entry = g.Key.Entry,
+                    Date = g.Key.Date,
+                    Uid = g.Key.Uid,
+                    SeverityAverage = g.Average(x => x?.Severity ?? 0) // Calculate average severity
+                })
+                .ToList();
+
+            return journalsWithSeverity;
         }
 
         public async Task<DailyJournal> PostDailyJournalAsync(AddDailyJournalDTO dailyJournalDTO)
