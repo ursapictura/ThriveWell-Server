@@ -6,6 +6,7 @@ namespace ThriveWell.API.Interfaces
     public interface IThriveWellTriggerService
     {
         Task<List<Trigger>> GetAllTriggersAsync(string uid);
+        Task<List<TopTriggersDTO>> GetTopFiveTriggersAsync(string uid);
         Task<Trigger> GetTriggerByIdAsync(int id);
         Task<Trigger> PostTriggerAsync(AddTriggerDTO triggerDTO);
         Task<Trigger> UpdateTriggerAsync(int id, AddTriggerDTO triggerDTO);

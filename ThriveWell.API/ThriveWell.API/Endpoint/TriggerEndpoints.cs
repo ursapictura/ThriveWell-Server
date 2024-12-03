@@ -19,6 +19,14 @@ namespace ThriveWell.API.Endpoint
                 .WithOpenApi()
                 .Produces<List<Trigger>>(StatusCodes.Status200OK);
 
+            group.MapGet("/user/{uid}/topfive", async (IThriveWellTriggerService triggerService, string uid) =>
+            {
+                return await triggerService.GetTopFiveTriggersAsync(uid);
+            })
+                .WithName("GetTopFiveTriggers")
+                .WithOpenApi()
+                .Produces<List<TopTriggersDTO>>(StatusCodes.Status200OK);
+
             group.MapGet("/{id}", async (IThriveWellTriggerService triggerService, int id) =>
             {
                 return await triggerService.GetTriggerByIdAsync(id);
