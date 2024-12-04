@@ -46,7 +46,7 @@ After that, you'll need to run the following commands inside you project termina
 dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 6.0
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0
 dotnet user-secrets init
-dotnet user-secrets set "_26_28sweNamelessBEDbConnectionString" "Host=localhost;Port=5432;Username=postgres;Password=<your_postgresql_password>;Database=_26_28sweNamelessBE"
+dotnet user-secrets set "ThriveWellDbConnectionString" "Host=localhost;Port=5432;Username=postgres;Password=<your_postgresql_password>;Database=ThriveWell"
 dotnet ef database update
 ```
 3. Run the solution in Visual Studio to launch Swagger and copy your localhost URI to use in Postman.
