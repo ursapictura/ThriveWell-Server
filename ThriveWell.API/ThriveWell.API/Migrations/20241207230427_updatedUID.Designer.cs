@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ThriveWell.API.Data;
@@ -11,9 +12,10 @@ using ThriveWell.API.Data;
 namespace ThriveWell.API.Migrations
 {
     [DbContext(typeof(ThriveWellDbContext))]
-    partial class ThriveWellDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207230427_updatedUID")]
+    partial class updatedUID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
