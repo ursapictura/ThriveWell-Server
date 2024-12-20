@@ -16,11 +16,13 @@ namespace ThriveWell.Tests
         private readonly IThriveWellDailyJournalService _journalService;
 
         private readonly Mock<IThriveWellDailyJournalRepository> _mockJournalRepo;
+        private readonly Mock<IThriveWellSymptomLogRepository> _mockSymptomLogRepo;
 
         public DailyJournalTests()
         {
             _mockJournalRepo = new Mock<IThriveWellDailyJournalRepository>();
-            _journalService = new ThriveWellDailyJournalService(_mockJournalRepo.Object);
+            _mockSymptomLogRepo = new Mock<IThriveWellSymptomLogRepository>();
+            _journalService = new ThriveWellDailyJournalService(_mockJournalRepo.Object, _mockSymptomLogRepo.Object);
         }
 
         [Fact]
@@ -56,13 +58,23 @@ namespace ThriveWell.Tests
         {
             int journalId = 1;
 
-            var expectedJournal = new DailyJournal { Id = journalId };
+            var expectedJournal = new DailyJournal
+            {
+                Id = journalId,
+                Entry = "Test entry",
+                Uid = "TestUid",
+                Date = new DateOnly(2024, 04, 29)
+            };
 
             _mockJournalRepo.Setup(j => j.GetDailyJournalByIdAsync(journalId)).ReturnsAsync(expectedJournal);
 
             var actualJournal = await _journalService.GetDailyJournalByIdAsync(journalId);
 
-            Assert.Equal(expectedJournal, actualJournal);
+            Assert.NotNull(actualJournal);
+            Assert.Equal(expectedJournal.Id, actualJournal.Id);
+            Assert.Equal(expectedJournal.Entry, actualJournal.Entry);
+            Assert.Equal(expectedJournal.Uid, actualJournal.Uid);
+            Assert.Equal(expectedJournal.Date, actualJournal.Date);
         }
 
         [Fact]

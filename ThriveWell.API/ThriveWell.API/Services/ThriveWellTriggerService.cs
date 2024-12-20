@@ -18,6 +18,11 @@ namespace ThriveWell.API.Sevices
             return await _triggerRepo.GetAllTriggersAsync(uid);
         }
 
+        public async Task<List<TopTriggersDTO>> GetTopFiveTriggersAsync(string uid)
+        {
+            return await _triggerRepo.GetTopFiveTriggersAsync(uid);
+        }
+
         public async Task<Trigger> GetTriggerByIdAsync(int id)
         {
             return await _triggerRepo.GetTriggerByIdAsync(id);
@@ -37,5 +42,6 @@ namespace ThriveWell.API.Sevices
         {
             return await _triggerRepo.DeleteTriggerAsync(id);
         }
+
     }
 }
