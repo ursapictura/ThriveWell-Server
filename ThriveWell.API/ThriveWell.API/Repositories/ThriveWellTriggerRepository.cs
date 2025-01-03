@@ -29,6 +29,8 @@ namespace ThriveWell.API.Repositories
             // Get all user SymptomTriggers from last thiry days, include Trigger entity in object
             var triggers = await _context.SymptomTriggers.Where(st => st.Trigger.Uid == uid && st.SymptomLog.Date >= endDate).Include(st => st.Trigger).ToListAsync();
 
+            var symptomLogCount = await _context.SymptomLogs.Where(sl => sl.Uid == uid && sl.Date >= endDate).CountAsync();
+
             Console.WriteLine(triggers);
 
             if (triggers != null && triggers.Any())
@@ -45,7 +47,7 @@ namespace ThriveWell.API.Repositories
                         Name = group.Key.Name,
                         Total = group.Count(),
                         Percentage = totalTriggersCount > 0
-                            ? (double)group.Count() / totalTriggersCount * 100 // Calculate percentage of times each trigger appears in symptom triggers ovver the last thirty days
+                            ? (double)group.Count() / symptomLogCount * 100 // Calculate percentage of times each trigger appears in symptom triggers ovver the last thirty days
                             : 0,
                         SeverityAverage = group.Average(st => st.SymptomSeverity)  // Calculate the average symptom severity for each trigger
                     })
