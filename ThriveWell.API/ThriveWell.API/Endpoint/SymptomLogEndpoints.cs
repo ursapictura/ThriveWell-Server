@@ -31,7 +31,18 @@ namespace ThriveWell.API.Endpoint
             group.MapGet("{uid}/date/{year}/{month}/{day}", async (IThriveWellSymptomLogService symptomLogService, string uid, int year, int month, int day) =>
             {
                 return await symptomLogService.GetSymptomLogsByDateAsync(uid,year, month, day);
-            });
+            })
+                .WithName("GetSymptomLogsByDate")
+                .WithOpenApi()
+                .Produces<List<SymptomLog>>(StatusCodes.Status200OK);
+
+            group.MapGet("{uid}/thirtydays", async (IThriveWellSymptomLogService symptomLogService, string uid) =>
+            {
+                return await symptomLogService.GetSymptomLogsForThirtyDaysAsync(uid);
+            })
+                .WithName("GetSymptomLogsForLastThirtyDays")
+                .WithOpenApi()
+                .Produces<List<SymptomLog>>(StatusCodes.Status200OK);
 
             group.MapPost("/", async (IThriveWellSymptomLogService symptomLogService, AddSymptomLogDTO symptomLogDTO) =>
             {

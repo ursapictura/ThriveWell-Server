@@ -53,6 +53,16 @@ namespace ThriveWell.API.Respositories
                  .ToListAsync();
         }
 
+        public async Task<List<SymptomLog>> GetSymptomLogsForThirtyDaysAsync(string uid, DateOnly startDate)
+        {
+            return await _context.SymptomLogs
+                .Where(sl => sl.Uid == uid && sl.Date >= startDate)
+                .Include(sl => sl.Symptom)
+                .Include(sl => sl.SymptomTrigger)
+                    .ThenInclude(st => st.Trigger)
+                .OrderByDescending(sl => sl.Date)
+                .ToListAsync();
+        }
         public async Task<SymptomLog> PostSymtpomLogAsync(AddSymptomLogDTO symptomLogDTO)
         {
             if (symptomLogDTO.Severity < 1 || symptomLogDTO.Severity > 5)
