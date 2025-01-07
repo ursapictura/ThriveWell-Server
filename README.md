@@ -17,6 +17,7 @@ Overtime, patients and care providers can see which triggers and most likely lin
 This documentation provides detailed information on all API endpoints and request / response formats. To make things easier, examples of request and response has been provided.
 </p>
 
+<p><strong>Note: to see the full collection of API calls, refer to the the "stretch-1" branch of this repository.</strong></p>
 
 <p align="center">
 <a href="https://documenter.getpostman.com/view/31905233/2sAYBViC5M">View Postman Documentation</a>
@@ -90,7 +91,8 @@ The following endpoints are available in the ThriveWell API.
 ### Daily Journal
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>GET /journals/user{uid}</kbd>     | retrieves all of a user's journal entries
+| <kbd>GET /journals/user/{uid}</kbd>     | retrieves all of a user's journal entries
+| <kbd>GET /journals/user/{uid}/{year}/{month}</kbd>     | retrieves all of a user's journal entries from a specific month and year
 | <kbd>GET /journals/{id}</kbd>     | retrieves a user's specific journal entry
 | <kbd>POST /journals</kbd>     | creates a new journal entry for a user
 | <kbd>PUT /journals/{id}</kbd>     | edits a user's journal entry
@@ -101,7 +103,7 @@ The following endpoints are available in the ThriveWell API.
 
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>GET /symptoms/user{uid}</kbd>     | retrieves all of a user's symptom
+| <kbd>GET /symptoms/user/{uid}</kbd>     | retrieves all of a user's symptom
 | <kbd>GET /symptoms/{id}</kbd>     | retrieves a user's specific symptom
 | <kbd>POST /symptoms</kbd>     | creates a new symptom for a user
 | <kbd>PUT /symptoms/{id}</kbd>     | edits a specific symptom
@@ -111,8 +113,9 @@ The following endpoints are available in the ThriveWell API.
 
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>GET /triggers/user{uid}</kbd>     | retrieves all of a user's trigger
+| <kbd>GET /triggers/user/{uid}</kbd>     | retrieves all of a user's trigger
 | <kbd>GET /triggers/{id}</kbd>     | retrieves a user's specific trigger
+| <kbd>GET /triggers/user/{uid}/topfive</kbd>     | retrieves a user's top five recurring triggers from the last 30 days
 | <kbd>POST /triggers</kbd>     | creates a new trigger for a user
 | <kbd>PUT /triggers/{id}</kbd>     | edits a specific trigger
 | <kbd>DELETE /triggers/{id}</kbd>     | deletes a specific trigger
@@ -121,9 +124,11 @@ The following endpoints are available in the ThriveWell API.
 
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>GET /logs/user{uid}</kbd>     | retrieves all of a user's symptom logs
+| <kbd>GET /logs/user/{uid}</kbd>     | retrieves all of a user's symptom logs
+| <kbd>GET /logs/{uid}/date/{year}/{month}/{day}</kbd>     | retrieves all of a user's symptom logs by a specific date
+| <kbd>GET /logs/{uid}/thirydays</kbd>     | retrieves all of a user's symptom logs from the last 30 days
 | <kbd>GET /logs/{id}</kbd>     | retrieves a user's specific symptom log
-| <kbd>POST /ogs</kbd>     | creates a new symptom log for a user
+| <kbd>POST /logs</kbd>     | creates a new symptom log for a user
 | <kbd>PUT /logs/{id}</kbd>     | edits a specific log
 | <kbd>DELETE /logs/{id}</kbd>     | deletes a specific log
 
@@ -132,8 +137,8 @@ The following endpoints are available in the ThriveWell API.
 
 | route               | description                                          
 |----------------------|-----------------------------------------------------
-| <kbd>POST /authenticate</kbd>     | create a new symptom trigger for a user's symptom log
-| <kbd>DELETE /logs/{id}</kbd>     | deletes a specific symptom trigger from a symptom log
+| <kbd>POST /symptom-trigger</kbd>     | create a new symptom trigger for a user's symptom log
+| <kbd>DELETE /symptom-trigger/{id}</kbd>     | deletes a specific symptom trigger from a symptom log
 
 
 <h3>Documentations that might help</h3>
