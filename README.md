@@ -17,7 +17,6 @@ Overtime, patients and care providers can see which triggers and most likely lin
 This documentation provides detailed information on all API endpoints and request / response formats. To make things easier, examples of request and response has been provided.
 </p>
 
-<p><strong>Note: to see the full collection of API calls, refer to the the "stretch-1" branch of this repository.</strong></p>
 
 <p align="center">
 <a href="https://documenter.getpostman.com/view/31905233/2sAYBViC5M">View Postman Documentation</a>
