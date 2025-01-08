@@ -1,6 +1,6 @@
-namespace ThriveWell.API.Models
+﻿namespace ThriveWell.API.DTOs
 {
-    public class DailyJournal
+    public class DailyJournalDTO
     {
         public int Id { get; set; }
         public string? Entry { get; set; }

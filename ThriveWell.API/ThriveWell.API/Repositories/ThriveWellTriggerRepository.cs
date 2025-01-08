@@ -21,6 +21,46 @@ namespace ThriveWell.API.Repositories
             return await _context.Triggers.OrderBy(t => t.Name).Where(t => t.Uid == uid).ToListAsync();
         }
 
+        public async Task<List<TopTriggersDTO>> GetTopFiveTriggersAsync(string uid)
+        {
+            // calculate date for thirty days before today
+            var endDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-30));
+
+            // Get all user SymptomTriggers from last thiry days, include Trigger entity in object
+            var triggers = await _context.SymptomTriggers.Where(st => st.Trigger.Uid == uid && st.SymptomLog.Date >= endDate).Include(st => st.Trigger).ToListAsync();
+
+            var symptomLogCount = await _context.SymptomLogs.Where(sl => sl.Uid == uid && sl.Date >= endDate).CountAsync();
+
+            Console.WriteLine(triggers);
+
+            if (triggers != null && triggers.Any())
+            {
+                // Calculate the total number of triggers
+                var totalTriggersCount = triggers.Count;
+
+                // Group by trigger, count occurrences, and calculate the percentage and SymptomSeverity average across the trigger's associated SymptomTriggers
+                var topFiveTriggers = triggers
+                    .GroupBy(st => st.Trigger)
+                    .Select(group => new TopTriggersDTO
+                    {
+                        Id = group.Key.Id,
+                        Name = group.Key.Name,
+                        Total = group.Count(),
+                        Percentage = totalTriggersCount > 0
+                            ? (double)group.Count() / symptomLogCount * 100 // Calculate percentage of times each trigger appears in symptom triggers ovver the last thirty days
+                            : 0,
+                        SeverityAverage = group.Average(st => st.SymptomSeverity)  // Calculate the average symptom severity for each trigger
+                    })
+                    .OrderByDescending(g => g.Total)
+                    .Take(5)
+                    .ToList();
+
+                return topFiveTriggers;
+            }
+
+            return null;
+        }
+
         public async Task<Trigger> GetTriggerByIdAsync(int id)
         {
             Trigger trigger = await _context.Triggers.SingleOrDefaultAsync(t => t.Id == id);

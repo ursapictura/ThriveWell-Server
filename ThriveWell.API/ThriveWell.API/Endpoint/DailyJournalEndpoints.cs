@@ -28,6 +28,15 @@ namespace ThriveWell.API.Endpoint
                 .WithOpenApi()
                 .Produces<DailyJournal>(StatusCodes.Status200OK);
 
+            group.MapGet("/user/{uid}/{year}/{month}", async (IThriveWellDailyJournalService dailyJournalService, string uid, int year, int month) =>
+            {
+                var journal = await dailyJournalService.GetDailyJournalsByMonthAndYearAsync(uid, year, month);
+                return journal;
+            })
+                .WithName("GetDailyJournalByMonthAndYear")
+                .WithOpenApi()
+                .Produces<List<DailyJournal>>(StatusCodes.Status200OK);
+
             group.MapPost("/", async (IThriveWellDailyJournalService dailyJournalService, AddDailyJournalDTO dailyJournalDTO) =>
             {
                 var journal = await dailyJournalService.PostDailyJournalAsync(dailyJournalDTO);

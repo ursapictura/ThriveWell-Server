@@ -22,6 +22,16 @@ namespace ThriveWell.API.Sevices
         {
             return await _symptomLogRepo.GetSymptomLogByIdAsync(id);
         }
+        public async Task<List<SymptomLog>> GetSymptomLogsByDateAsync(string uid, int year, int month, int day)
+        {
+            return await _symptomLogRepo.GetSymptomLogsByDateAsync(uid, year, month, day);
+        }
+
+        public async Task<List<SymptomLog>> GetSymptomLogsForThirtyDaysAsync(string uid)
+        {
+            var thirtyDaysAgo = DateOnly.FromDateTime(DateTime.Now.AddDays(-30));
+            return await _symptomLogRepo.GetSymptomLogsForThirtyDaysAsync(uid, thirtyDaysAgo);
+        }
 
         public async Task<SymptomLog> PostSymtpomLogAsync(AddSymptomLogDTO symptomLogDTO)
         {
